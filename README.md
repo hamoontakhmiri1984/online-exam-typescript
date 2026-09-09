@@ -1,55 +1,47 @@
-# سامانه آزمون آنلاین
+# Online Exam System
 
-یه سامانه‌ی مدیریت و برگزاری آزمون آنلاین، با React 19 + TypeScript + Vite + Tailwind CSS v4.
+A platform for creating, managing, and running online exams, built with React 19, TypeScript, Vite, and Tailwind CSS v4.
 
-هدف نهایی یه محصول قابل فروشه (با پلن‌های رایگان/طلایی/پلاتینیوم/VIP)، ولی فعلاً روی تکمیل و
-زیبایی فرانت‌اند تمرکز داریم؛ بک‌اند واقعی هنوز ساخته نشده.
+The long-term goal is a sellable product with tiered plans (Free / Gold / Platinum / VIP), but right now the focus is on getting the frontend fully built out and polished before the real backend goes in.
 
-## وضعیت فعلی پروژه
+## Current status
 
-⚠️ **این پروژه فقط فرانت‌اِنده.** هیچ سرور یا دیتابیس واقعی وجود نداره. تمام داده‌ها
-(آزمون‌ها، سوالات، دانشجویان، کاربران) داخل فایل‌های `src/api/*.ts` به‌صورت آرایه‌ی
-درون‌حافظه شبیه‌سازی شدن و با رفرش صفحه از بین می‌رن (به‌جز کاربر لاگین‌شده که تو
-`localStorage` می‌مونه). این لایه طوری طراحی شده که بعداً به‌راحتی با فراخوانی API واقعی
-جایگزین بشه، بدون اینکه کامپوننت‌ها و صفحات نیاز به تغییر داشته باشن.
+⚠️ **This is a frontend-only project.** There's no real server or database yet. All data — exams, questions, students, users — lives in in-memory arrays inside `src/api/*.ts` and resets on every page refresh (the logged-in user is the one exception, since that's kept in `localStorage`). This mock layer is deliberately shaped so it can be swapped for real API calls later without touching any components or pages.
 
-## استک فنی
+## Tech stack
 
 - React 19 + TypeScript + Vite
-- Tailwind CSS v4 (پلاگین `@tailwindcss/vite`)
+- Tailwind CSS v4 (via the `@tailwindcss/vite` plugin)
 - react-router-dom v7
-- lucide-react (آیکون)
-- recharts (نمودار)
-- xlsx (ایمپورت/اکسپورت اکسل بانک سوال)
+- lucide-react for icons
+- recharts for charts
+- xlsx for importing/exporting question banks from Excel
 
-## اجرای پروژه
+## Getting started
 
-```bash
+\`\`\`bash
 npm install
 npm run dev
-```
+\`\`\`
 
-## نقش‌ها و سطح دسترسی
+## Roles and access
 
-سامانه سه نقش داره:
+The system has three roles:
 
-| **SuperAdmin** | دسترسی کامل و بدون محدودیت به همه‌چیز — همه‌ی گروه‌ها، همه‌ی آزمون‌ها، همه‌ی دانشجویان، گزارش‌های کلی سامانه. |
-| **Instructor** | فقط داخل گروه‌هایی که خودش ساخته (`Group.instructorId`) کار می‌کنه — آزمون/درس/دانشجو فقط تو همون گروه‌ها. |
-| **Student** | فقط عضو گروه‌هاییه که یه مدرس بهش اضافه‌ش کرده (`Group.studentIds`) — فقط آزمون/درس همون گروه‌ها رو می‌بینه؛ هیچ دسترسی مدیریتی نداره. |
+| Role | Access |
+|---|---|
+| **SuperAdmin** | Full, unrestricted access — every group, exam, student, and the system-wide reports. |
+| **Instructor** | Scoped to the groups they own (`Group.instructorId`) — exams, lessons, and students only within those groups. |
+| **Student** | Scoped to whatever groups they've been added to (`Group.studentIds`) — sees only the exams and lessons for those groups, no management access at all. |
 
-**نکته‌ی مهم:** وقتی یه Instructor از صفحه‌ی «دانشجویان» یه دانشجوی جدید اضافه می‌کنه، باید
-براش یه «نام کاربری» هم مشخص کنه — همون لحظه یه حساب ورود واقعی (mock) براش ساخته می‌شه.
-ولی این کار به‌تنهایی دسترسی به هیچ آزمونی نمی‌ده؛ دسترسی کاملاً بر اساس عضویت تو گروه‌هاست
-(`Group.studentIds`) که از صفحه‌ی «گروه‌ها» مدیریت می‌شه — یعنی مدرس باید جدا دانشجو رو به
-گروه(های) مربوطه هم اضافه کنه.
+**One thing worth knowing:** when an Instructor adds a new student from the Students page, they also set a username for them — that immediately creates a real (mock) login account. On its own, though, that doesn't grant access to anything. Access is entirely driven by group membership (`Group.studentIds`), which is managed separately from the Groups page — so the instructor still needs to add the student to the relevant group(s) after creating their account.
 
-کاربرهای آماده برای تست (رمز عبور هرچی باشه قبول می‌شه، چون بک‌اند واقعی نداریم):
+Test accounts (any password works, since there's no real backend yet):
 
-- `admin` → SuperAdmin
-- `instructor1` → Instructor (دو گروه: ریاضی و فیزیک)
-- `student1` → Student (عضو گروه ریاضی)
+- \`admin\` → SuperAdmin
+- \`instructor1\` → Instructor (two groups: Math and Physics)
+- \`student1\` → Student (member of the Math group)
 
-## نقشه‌ی راه
+## Roadmap
 
-قرار اینه اول فرانت‌اند کامل و صیقل بخوره، بعد بک‌اند واقعی (Node.js + PostgreSQL) جایگزین
-لایه‌ی mock تو `src/api/*.ts` بشه — بدون این‌که کامپوننت‌ها یا صفحات نیاز به تغییر داشته باشن.
+The plan is to finish and polish the frontend first, then bring in a real backend (Node.js + PostgreSQL) to replace the mock layer in \`src/api/*.ts\` — without requiring changes to any components or pages.
