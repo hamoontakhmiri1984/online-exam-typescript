@@ -18,8 +18,6 @@ import Toast from '../../components/Toast/Toast';
 import EmptyState from '../../components/EmptyState/EmptyState';
 
 function StudentsPage() {
-  // add/update اینجا دیگه صدا زده نمی‌شن (فرمی نمونده که ازشون استفاده کنه)،
-  // ولی useCrud برای تایپ‌سیفتی بهشون نیاز داره - همون آدرس‌دهی به API قبلی
   const {
     items: students,
     loading,
@@ -53,9 +51,7 @@ function StudentsPage() {
     setDeleteTarget(null);
   }
 
-  // SuperAdmin کل roster رو می‌بینه؛ Instructor فقط دانشجوهایی که تو حداقل
-  // یکی از گروه‌های خودشه (visibleGroups از useGroups این فیلتر رو خودش
-  // برای Instructor انجام داده - همون منطق ExamsPage/LessonsPage)
+
   const relevantGroups =
     currentUser?.role === 'SuperAdmin' ? groups : visibleGroups;
 

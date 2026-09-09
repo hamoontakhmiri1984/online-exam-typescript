@@ -2,7 +2,6 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  /* برند اصلی — indigo عمیق، جایگزین آبی تکراری */
   --color-brand-50: #f2f1fc;
   --color-brand-100: #e5e3f9;
   --color-brand-200: #c8c3f1;
@@ -15,17 +14,14 @@
   --color-brand-900: #1c1852;
   --color-brand-950: #100d33;
 
-  /* تاکیدی — کهربایی گرم، هم‌خونه با پکیج Gold */
   --color-accent-400: #f59e0b;
   --color-accent-500: #e08a04;
   --color-accent-600: #d97706;
   --color-accent-700: #b45309;
 
-  /* موفقیت — برای تیک‌های جدول تعرفه‌ها */
   --color-success-500: #22c55e;
   --color-success-600: #16a34a;
 
-  /* خطا/حذف/هشدار جدی — جایگزین red پیش‌فرض Tailwind */
   --color-danger-50: #fef2f2;
   --color-danger-100: #fee2e2;
   --color-danger-200: #fecaca;
@@ -36,7 +32,6 @@
   --color-danger-900: #7f1d1d;
   --color-danger-950: #450a0a;
 
-  /* سطح پس‌زمینه‌ی صفحات عمومی (لندینگ) */
   --color-surface-light: #f6f7fb;
   --color-surface-dark: #0b0e17;
 }

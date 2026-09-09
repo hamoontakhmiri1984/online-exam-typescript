@@ -1,5 +1,4 @@
-// یوتیوب/آپارات لینک معمولی رو به لینک قابل embed تبدیل می‌کنه؛
-// برای بقیه لینک‌ها همون آدرس اصلی رو برمی‌گردونه
+
 export function toEmbedUrl(url: string): string {
     const youtubeMatch = url.match(
       /(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/

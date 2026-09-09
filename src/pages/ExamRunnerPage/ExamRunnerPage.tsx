@@ -40,16 +40,13 @@ function ExamRunnerPage() {
 
   const { setExamActive } = useExamGuard();
 
-  // به‌محض شروع واقعی آزمون، Context رو خبر می‌کنیم تا اگه کاربر خواست از
-  // منو یا لوگو خارج بشه، اول مودال تایید لغو آزمون رو ببینه. با پایان یا
-  // خروج از این صفحه، خودش خاموش می‌شه.
+
   useEffect(() => {
     setExamActive(hasStarted && !isFinished);
     return () => setExamActive(false);
   }, [hasStarted, isFinished, setExamActive]);
 
-  // بستن یا رفرش تب مرورگر وسط آزمون هم باید هشدار بده (این یکی رو
-  // خود مرورگر مدیریت می‌کنه، نه مودال ما - استاندارد وبه)
+
   useEffect(() => {
     if (!hasStarted || isFinished) return;
 

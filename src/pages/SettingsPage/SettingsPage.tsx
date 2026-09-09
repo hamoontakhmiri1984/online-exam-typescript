@@ -31,10 +31,6 @@ function SettingsPage() {
   );
   const [justSaved, setJustSaved] = useState(false);
 
-  // این بخش قبلاً فقط تو متن صفحه‌ی ثبت‌نام وعده داده شده بود («بعداً از
-  // تنظیمات می‌تونی به گروه بپیوندی») بدون این‌که واقعاً پیاده شده باشه -
-  // فقط برای Student معنی داره، چون Instructor/SuperAdmin اصلاً از این راه
-  // عضو گروه نمی‌شن
   const isStudent = currentUser?.role === 'Student';
 
   const [myGroups, setMyGroups] = useState<Group[]>([]);
@@ -90,7 +86,6 @@ function SettingsPage() {
   function handleNameBlur() {
     const trimmed = name.trim();
     if (!trimmed) {
-      // اسم خالی معنی نداره - برش می‌گردونیم به آخرین مقدار معتبر
       setName(currentUser?.name ?? currentUser?.username ?? '');
       return;
     }
@@ -119,7 +114,6 @@ function SettingsPage() {
       <h1 className="text-2xl font-bold mb-6 dark:text-white">تنظیمات</h1>
 
       <div className="flex flex-col gap-4 max-w-xl">
-        {/* پروفایل */}
         <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900">
           <div className="flex items-center gap-3 mb-4">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-50 text-brand-600 dark:bg-brand-950/40 dark:text-brand-400">
@@ -150,7 +144,6 @@ function SettingsPage() {
           </div>
         </div>
 
-        {/* گروه‌های من - فقط برای Student */}
         {isStudent && (
           <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900">
             <div className="flex items-center gap-3 mb-4">

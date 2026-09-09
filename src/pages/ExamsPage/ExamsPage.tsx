@@ -47,8 +47,6 @@ function ExamsPage() {
   const canManage =
     !!currentUser && MANAGEMENT_ROLES.includes(currentUser.role);
 
-  // گروه‌هایی که موقع ساخت/ویرایش آزمون می‌شه بهش انتخاب کرد - مدرس فقط
-  // گروه‌های خودش، SuperAdmin همه‌ی گروه‌ها رو می‌بینه
   const [availableGroups, setAvailableGroups] = useState<Group[]>([]);
 
   useEffect(() => {
@@ -67,8 +65,6 @@ function ExamsPage() {
     getAllAttempts().then(setAttempts);
   }, []);
 
-  // تعداد شرکت‌کننده‌ی واقعی هر آزمون - از روی تلاش‌های واقعاً ثبت‌شده،
-  // نه یه عدد دستی
   function getParticipantCount(examId: string) {
     const uniqueStudents = new Set(
       attempts.filter((a) => a.examId === examId).map((a) => a.studentId)

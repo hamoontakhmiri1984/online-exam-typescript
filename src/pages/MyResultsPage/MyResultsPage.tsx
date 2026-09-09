@@ -17,7 +17,6 @@ import {
   type ExamAttempt,
 } from '../../api/examAttemptApi';
 
-// رنگ نمره بر اساس درصد - همون آستانه‌هایی که تو بقیه‌ی صفحات هم استفاده شده
 function scoreTone(percent: number): {
   text: string;
   bg: string;

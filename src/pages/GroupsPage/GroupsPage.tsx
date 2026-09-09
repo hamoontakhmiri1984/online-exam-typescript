@@ -42,22 +42,18 @@ function GroupsPage() {
     remove: deleteGroup,
   });
 
-  // SuperAdmin همه‌ی گروه‌ها رو می‌بینه، مدرس فقط گروه‌های خودش رو
   const visibleGroups =
     currentUser?.role === 'SuperAdmin'
       ? groups
       : groups.filter((g) => g.instructorId === currentUser?.id);
 
-  // برای چک‌لیست عضویت، به لیست دانشجوها نیاز داریم (نه فقط عضوهای فعلی گروه)
   const [allStudents, setAllStudents] = useState<Student[]>([]);
 
   useEffect(() => {
     getStudents().then(setAllStudents);
   }, []);
 
-  // SuperAdmin کل roster رو تو چک‌لیست می‌بینه؛ Instructor فقط دانشجوهایی که
-  // از قبل تو حداقل یکی از گروه‌های خودشه (یعنی می‌تونه بینشون جابه‌جا کنه)
-  // نه کل روستر سیستم - همون منطق StudentsPage.tsx
+
   const students =
     currentUser?.role === 'SuperAdmin'
       ? allStudents
@@ -86,8 +82,7 @@ function GroupsPage() {
       setCopiedGroupId(group.id);
       setTimeout(() => setCopiedGroupId(null), 1500);
     } catch {
-      // اگه کلیپ‌بورد در دسترس نبود (مثلاً به‌خاطر مجوز مرورگر)، حداقل کد
-      // رو تو خود کارت نشون دادیم؛ مدرس می‌تونه دستی سلکت/کپی کنه
+
     }
   }
 

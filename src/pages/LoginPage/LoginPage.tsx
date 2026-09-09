@@ -10,7 +10,6 @@ function LoginPage() {
 
   return (
     <div className="relative min-h-screen overflow-hidden flex items-center justify-center bg-linear-to-br from-brand-50 via-white to-brand-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 px-4 transition-colors">
-      {/* بلاب‌های محو برای عمق بیشتر پس‌زمینه */}
       <div className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-brand-500/20 blur-3xl dark:bg-brand-600/20" />
       <div className="pointer-events-none absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-brand-300/30 blur-3xl dark:bg-brand-600/10" />
 

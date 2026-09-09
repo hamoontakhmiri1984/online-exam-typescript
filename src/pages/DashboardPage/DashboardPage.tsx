@@ -31,19 +31,13 @@ function DashboardPage() {
   const [allStudents, setAllStudents] = useState<Student[]>([]);
   const [allAttempts, setAllAttempts] = useState<ExamAttempt[]>([]);
 
-  // آمار بالای صفحه و جدول «آزمون‌های اخیر» قبلاً عدد ثابت بودن و هیچ‌وقت
-  // با آزمون/دانشجو/نتیجه‌ی واقعی به‌روز نمی‌شدن؛ اینجا از همون APIهایی که
-  // بقیه‌ی صفحات استفاده می‌کنن می‌خونیم تا داشبورد واقعاً وضعیت فعلی رو نشون بده
   useEffect(() => {
     getExams().then(setAllExams);
     getStudents().then(setAllStudents);
     getAllAttempts().then(setAllAttempts);
   }, []);
 
-  // این صفحه برای هر سه نقش بازه (ALL_ROLES تو سایدبار)، پس دیتای خامش رو
-  // مثل ExamsPage/StudentsPage از فیلتر scope رد می‌کنیم - وگرنه یه
-  // Instructor/Student آمار و «آزمون‌های اخیر» کل سیستم رو می‌دید، نه فقط
-  // گروه‌های خودش (SuperAdmin مثل قبل همه‌چی رو می‌بینه، بدون فیلتر)
+
   const { visibleItems: exams } = useScope(allExams, (exam) => exam.groupIds);
   const { groups, visibleGroups, currentUser } = useGroups();
 
@@ -110,7 +104,6 @@ function DashboardPage() {
     .sort((a, b) => b.date.localeCompare(a.date))
     .slice(0, 5);
 
-  // «پرشرکت‌کننده‌ترین آزمون‌ها» - از همون attempts اسکوپ‌شده، نه یه دیتای mock ثابت
   const topExamsData = exams
     .map((exam) => ({
       label: exam.title,
@@ -120,8 +113,6 @@ function DashboardPage() {
     .sort((a, b) => b.participants - a.participants)
     .slice(0, 5);
 
-  // روند میانگین نمره در ماه‌های اخیر - attemptها بر اساس ماه شمسیِ finishedAt
-  // گروه‌بندی می‌شن (نه از رو Exam.date، چون اون یه رشته‌ی دستیه نه تاریخ واقعی)
   function jalaliMonthInfo(iso: string): { label: string; sortKey: number } {
     const date = new Date(iso);
     const longParts = new Intl.DateTimeFormat('fa-IR-u-ca-persian', {
@@ -170,7 +161,6 @@ function DashboardPage() {
 
   return (
     <AppLayout title="داشبورد مدیریتی">
-      {/* تاریخ امروز - گوشه‌ی صفحه */}
       <div className="mb-4 flex justify-end">
         <div className="flex items-center gap-1.5 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-500 shadow-sm dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400">
           <Calendar size={13} />
@@ -178,7 +168,6 @@ function DashboardPage() {
         </div>
       </div>
 
-      {/* Welcome banner - باریک */}
       <div className="mb-6 flex items-center justify-between rounded-2xl bg-linear-to-l from-brand-600 to-brand-700 px-6 py-4 text-white shadow-md shadow-brand-600/20 dark:shadow-none">
         <div>
           <p className="flex items-center gap-1.5 text-sm text-white/80">
@@ -194,7 +183,6 @@ function DashboardPage() {
         </p>
       </div>
 
-      {/* Stats */}
       <section className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {stats.map(({ label, value, icon: Icon, bg }) => (
           <div
@@ -216,13 +204,11 @@ function DashboardPage() {
         ))}
       </section>
 
-      {/* Charts */}
       <section className="mb-8 grid grid-cols-1 gap-4 lg:grid-cols-2">
         <TodayExamsChart data={topExamsData} />
         <ProgressChart data={progressData} />
       </section>
 
-      {/* Recent Exams */}
       <section className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm dark:border-gray-800 dark:bg-gray-900">
         <div className="flex items-center justify-between border-b border-gray-100 px-6 py-5 dark:border-gray-800">
           <div>
