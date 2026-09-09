@@ -43,6 +43,12 @@
 
 body {
   font-family: 'Vazirmatn', sans-serif;
+  user-select: none;
+}
+
+input,
+textarea {
+  user-select: text;
 }
 
 html {
